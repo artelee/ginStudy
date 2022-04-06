@@ -1,6 +1,7 @@
-package ginStudy
+package main
 
 import (
+	api "ginStudy/api"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -11,10 +12,10 @@ func main() {
 	// Query string parameters are parsed using the existing underlying request object.
 	// The request responds to a url matching:  /welcome?firstname=Jane&lastname=Doe
 	router.GET("/welcome", func(c *gin.Context) {
-		firstname := c.DefaultQuery("firstname", "Guest")
-		lastname := c.Query("lastname") // shortcut for c.Request.URL.Query().Get("lastname")
+		name := c.DefaultQuery("name", "머글")
+		//lastname := c.Query("lastname") // shortcut for c.Request.URL.Query().Get("lastname")
 
-		c.String(http.StatusOK, "Hello %s %s", firstname, lastname)
+		c.String(http.StatusOK, api.GetWelcomeMessage(name))
 	})
 	router.Run(":8080")
 }
