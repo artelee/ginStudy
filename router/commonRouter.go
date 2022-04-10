@@ -15,7 +15,6 @@ func GetCommonRouter(port int) {
 	// The request responds to a url matching:  /welcome?firstname=Jane&lastname=Doe
 	router.GET("/welcome", func(c *gin.Context) {
 		name := c.DefaultQuery("name", "머글")
-
 		c.String(http.StatusOK, api.GetWelcomeMessage(name))
 	})
 	router.Run(`:` + strconv.Itoa(port))
