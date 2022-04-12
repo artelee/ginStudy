@@ -18,5 +18,6 @@ func GetCommonRouter(port int) {
 		c.String(http.StatusOK, api.GetWelcomeMessage(name))
 	})
 	router.Run(`:` + strconv.Itoa(port))
+
 	fmt.Printf(`---port:%d로 서버실행---`, port)
 }
