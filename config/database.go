@@ -1,9 +1,8 @@
 package config
 
 import (
+	"cloud.google.com/go/firestore"
 	"context"
-	firebase "firebase.google.com/go"
-	"firebase.google.com/go/db"
 	"fmt"
 	"log"
 	"os"
@@ -11,37 +10,46 @@ import (
 )
 
 type RealtimeDB struct {
-	client *db.Client
-	url    string
+	client *firestore.Client
+	//client *db.Client
+	url string
 }
 
 var dbInstance *RealtimeDB
 var once sync.Once
 
-func DBClient() *db.Client {
+func DBClient() *firestore.Client {
 	once.Do(func() {
-		fmt.Println("DB 연결 시작 --- FIREBASE REALTIME ---")
+		fmt.Println("DB 연결 시작 --- FIREBASE ---")
+
 		dbInstance = new(RealtimeDB)
-		GetDBConnenction(dbInstance)
-		fmt.Println("DB 연결 완료 --- FIREBASE REALTIME ---")
+		GetDBClient(dbInstance)
+		fmt.Println("DB 연결 완료 --- FIREBASE ---")
 	})
 	return dbInstance.client
 }
 
-func GetDBConnenction(rtb *RealtimeDB) {
-	rtb.url = `https://` + os.Getenv("FIREBASE_REALTIME_DATABASE_PRODUCT_ID") + `.firebaseio.com`
+func GetDBClient(rtb *RealtimeDB) {
 
+	fmt.Println("dbstore name : " + os.Getenv("FIREBASE_FIRESTORE_DATABASE_PRODUCT_ID"))
 	ctx := context.Background()
-	config := &firebase.Config{
-		DatabaseURL: rtb.url,
-	}
-	app, err := firebase.NewApp(ctx, config)
+
+	//config := &firebase.Config{
+	//	ProjectID:   os.Getenv("FIREBASE_FIRESTORE_DATABASE_PRODUCT_ID"),
+	//	DatabaseURL: rtb.url,
+	//}
+
+	//app, err := firebase.NewApp(ctx, config, option.WithCredentialsFile(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")))
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	client, err := firestore.NewClient(ctx, os.Getenv("FIREBASE_FIRESTORE_DATABASE_PRODUCT_ID"))
 	if err != nil {
 		log.Fatal(err)
 	}
-	client, err := app.Database(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
+	//client, err := app.Database(ctx)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 	rtb.client = client
 }

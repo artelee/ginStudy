@@ -1,6 +1,7 @@
 package main
 
 import (
+	"ginStudy/api"
 	"ginStudy/config"
 	"ginStudy/router"
 	"github.com/joho/godotenv"
@@ -12,6 +13,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	config.DBClient()
+	client := config.DBClient()
+	api.GetUserList(client)
 	router.GetCommonRouter(8080)
 }

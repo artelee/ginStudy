@@ -2,7 +2,11 @@ module ginStudy
 
 go 1.18
 
-require github.com/gin-gonic/gin v1.7.7
+require (
+	firebase.google.com/go v3.13.0+incompatible
+	github.com/gin-gonic/gin v1.7.7
+	github.com/joho/godotenv v1.4.0
+)
 
 require (
 	cloud.google.com/go v0.100.2 // indirect
@@ -10,7 +14,6 @@ require (
 	cloud.google.com/go/firestore v1.6.1 // indirect
 	cloud.google.com/go/iam v0.3.0 // indirect
 	cloud.google.com/go/storage v1.22.0 // indirect
-	firebase.google.com/go v3.13.0+incompatible // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
@@ -21,7 +24,6 @@ require (
 	github.com/googleapis/gax-go/v2 v2.2.0 // indirect
 	github.com/googleapis/go-type-adapters v1.0.0 // indirect
 	github.com/howeyc/fsnotify v0.9.0 // indirect
-	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
